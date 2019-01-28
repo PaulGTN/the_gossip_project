@@ -3,10 +3,17 @@
     <title>The Gossip Project</title>
   </head>
   <body>
-    <h1>Mon super site de gossip, du dossier views !</h1>
+    <h1>Mon super site de GOSSIP, du dossier views !</h1></br>
     <div>
-      <p>Hello User, la liste des potins arrive bientôt ! En attendant tu peux cliquer sur le lien ci-dessous</p>
-      <a href="/gossips/new/">GOSSIP</a>
-    </div>
+    <p>Balance ton potin en cliquand ci-dessous!</p>
+    <a href="/gossips/new/">GOSSIP</a>
+  </div>  
+    <% gossips.each_with_index do |gossip, index| %>
+    <p>
+      <a href="/gossips/<%= index + 1 %>/"> N°<%= index + 1 %></a><br/>
+    	<%= gossip.author %><br/>
+      <%= gossip.content %>
+    </p>
+    <% end %>
   </body>
 </html>

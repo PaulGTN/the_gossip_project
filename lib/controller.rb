@@ -1,31 +1,22 @@
-#require 'bundler'
-#Bundler.require
-
 require 'gossip'
 
 class ApplicationController < Sinatra::Base
-  
-  get '/' do
-    erb :index 
+
+	get '/' do
+  	erb :index, locals: {gossips: Gossip.all}
   end
 
   get '/gossips/new/' do
-    erb :new_gossip
+  	erb :new_gossip
   end
 
   post '/gossips/new/' do
-    puts params
-    gossip = Gossip.new(params["gossip_author"], params["gossip_content"])
-    gossip.save
-    redirect '/'
+  	Gossip.new(params["gossip_author"], params["gossip_content"]).save
+  	redirect '/'
   end
 
-  get '/gossips/:id' do
-    @gossip = all_gossips.select do |gossip|
-      gossip.id == params[:id]
-    end.first
-    erb :'/gossips/show.html'
-  end
-    #run! if app_file == $0
+  get '/gossips/:id/' do
+    erb :gossip_page, locals: {find_gossip: Gossip.find(params[:id])}
+	end
 
-end 
+end
